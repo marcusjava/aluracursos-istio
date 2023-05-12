@@ -3,9 +3,9 @@
   
 </p>
 
-<h1 align="center">Alura cursos Projeto Portal de noticias </h1>
+<h1 align="center">Alura cursos Projeto Portal de Noticias </h1>
 
-### Kubernetes, ISTIO service mesh
+### Kubernetes, ISTIO Service Mesh
 
 ## 1 - Instalação.
 
@@ -51,7 +51,33 @@ Kubernetes command-line tools(<a href="https://kubernetes.io/docs/tasks/tools/">
   <img alt="Schema" src="./images/kind_nodes.png" />
 </p>
 
-## 3 - Aplicando as configurações
+## 4 - Instalação ISTIO
+
+- <a href='https://istio.io/latest/docs/setup/getting-started/#download' target="_blank">Download</a>
+- <a href='https://istio.io/latest/docs/setup/getting-started/#install' target="_blank">Instalação</a>
+
+Adicionar seguinte label ao namespace para que o ISTIO injete os Sidecars proxy automaticamente quando realizarmos os deploys da aplicação
+
+`kubectl label namespace default istio-injection=enabled`
+
+## 5 - Determinando ingress IP e porta
+
+Para ambientes sem load balancer externo
+
+```
+export INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="http2")].nodePort}')
+export SECURE_INGRESS_PORT=$(kubectl -n istio-system get service istio-ingressgateway -o jsonpath='{.spec.ports[?(@.name=="https")].nodePort}')
+export INGRESS_HOST=$(kubectl get po -l istio=ingressgateway -n istio-system -o jsonpath='{.items[0].status.hostIP}')
+export GATEWAY_URL=$INGRESS_HOST:$INGRESS_PORT
+
+```
+
+Verficar se IP e porta foram criadas
+
+`echo "$GATEWAY_URL"`
+192.168.99.100:32194
+
+## 5 - Aplicando as configurações
 
 - portal-configmap.yml - Alterar IP_SISTEMA para o IP externo do sistema noticias
 
