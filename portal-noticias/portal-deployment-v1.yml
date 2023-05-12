@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: portal-v1
+  labels:
+    app: portal
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: portal
+      version: v1
+  template:
+    metadata:
+      name: portal-noticias
+      labels:
+        app: portal
+        version: v1
+    spec:
+      containers:
+        - name: portal-noticias
+          image: aluracursos/portal-noticias:1
+          resources:
+            limits:
+              cpu: "0.3"
+              memory: "256Mi"
+            requests:
+              cpu: "0.1"
+              memory: "128Mi"
+          envFrom:
+            - configMapRef:
+                name: portal-configmap
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            periodSeconds: 10 #Intervalo de tempo em que o probe será executado
+            failureThreshold: 3 #Numero de falhas antes que o pod seja considerado unhealthy
+            initialDelaySeconds: 20 #Aguardar 20 segundos antes de iniciar o teste
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            periodSeconds: 10 #Intervalo de tempo em que o probe será executado
+            failureThreshold: 10 #Após 10 falhas o kubelet continua exec setando Ready como false
+            initialDelaySeconds: 3 #Aguardar 3 segundos antes de iniciar o teste

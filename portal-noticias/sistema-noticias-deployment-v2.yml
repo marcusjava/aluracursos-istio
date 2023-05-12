@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sistema-v2
+  labels:
+    app: sistema
+    version: v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sistema
+  template:
+    metadata:
+      name: sistema-noticias
+      labels:
+        app: sistema
+        version: v2
+    spec:
+      containers:
+        - name: sistema-noticias-container
+          image: aluracursos/sistema-noticias:1
+          resources:
+            limits:
+              cpu: "0.5"
+              memory: "128Mi"
+            requests:
+              cpu: "0.1"
+              memory: "64Mi"
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - mountPath: /var/www/html/uploads
+              name: uploads-vol
+          envFrom:
+            - configMapRef:
+                name: sistema-configmap
+      volumes:
+        - name: uploads-vol
+          hostPath:
+            path: /data/uploads
+            type: DirectoryOrCreate
