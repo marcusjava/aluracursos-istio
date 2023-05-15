@@ -11,11 +11,11 @@
 
 ### Kubectl
 
-Kubernetes command-line tools(<a href="https://kubernetes.io/docs/tasks/tools/">kubectl</a>) permite executar comandos em seus clusters kubernetes
+Kubernetes command-line tools(<a href="https://kubernetes.io/docs/tasks/tools/">kubectl</a>) que permite executar comandos em seus clusters kubernetes
 
 ### Kind
 
-<a href='https://kind.sigs.k8s.io/' target="_blank">Kind</a> é uma ferramenta que permite executar Clusters Kubernetes usando "nodes" docker containers.
+<a href='https://kind.sigs.k8s.io/' target="_blank">Kind</a> é uma ferramenta que permite executar Clusters Kubernetes usando docker containers.
 
 ## 2 - Iniciando o cluster
 
@@ -27,7 +27,7 @@ Kubernetes command-line tools(<a href="https://kubernetes.io/docs/tasks/tools/">
 
 - Visualizando os nós com kind
 
-`kind create cluster`
+`kind get clusters`
 
 - Listar nós
 
@@ -56,7 +56,7 @@ Kubernetes command-line tools(<a href="https://kubernetes.io/docs/tasks/tools/">
 - <a href='https://istio.io/latest/docs/setup/getting-started/#download' target="_blank">Download</a>
 - <a href='https://istio.io/latest/docs/setup/getting-started/#install' target="_blank">Instalação</a>
 
-Adicionar seguinte label ao namespace para que o ISTIO injete os Sidecars proxy automaticamente quando realizarmos os deploys da aplicação
+Adicionar seguinte label ao namespace para que o ISTIO injete os Sidecars proxy automaticamente quando realizarmos o deploy da aplicação
 
 `kubectl label namespace default istio-injection=enabled`
 
