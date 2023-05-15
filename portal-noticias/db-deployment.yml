@@ -1,17 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: db-deployment
+  name: db-v1
+  labels:
+    app: db
+    version: v1
 spec:
   replicas: 1
   selector:
     matchLabels:
-      server: db
+      app: db
+      version: v1
   template:
     metadata:
       name: db-noticias
       labels:
-        server: db
+        app: db
+        version: v1
     spec:
       containers:
         - name: db-noticias-container

@@ -99,6 +99,10 @@ echo "$GATEWAY_URL
 │ ├── sistema-noticias-deployment-v2.yml
 │ ├── sistema-noticias-service.yml
 │ └── sistema-noticias.yml
+├── tasks
+│ ├── virtual-service-portal-v1-30-70.yaml
+│ └── virtual-service-portal-v1.yaml
+└── virtual-service-all.yaml
 ```
 
 Criar os seguintes items nessa ordem:
@@ -106,6 +110,10 @@ Criar os seguintes items nessa ordem:
 - Gateway
 
 `kubectl apply -f app-gateway.yaml`
+
+- Virtual Service
+
+`kubectl apply -f virtual-service-all.yaml`
 
 - Workloads
 
@@ -139,6 +147,24 @@ istioctl dashboard kiali
 <p>
   <img alt="Schema" src="./images/kiali.png" />
 </p>
+
+## 5 - Tasks
+
+- Somente Portal V1
+
+<p>
+  <img alt="Schema" src="./images/portal-v1-only.gif" />
+</p>
+  
+` kubectl apply -f tasks/virtual-service-portal-v1.yaml`
+
+- Portal V1 30%
+
+<p>
+  <img alt="Schema" src="./images/portal-v1-30-70.gif" />
+</p>
+  
+` kubectl apply -f tasks/virtual-service-portal-v1.yaml`
 
 ## Autor
 
