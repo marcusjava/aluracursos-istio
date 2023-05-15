@@ -74,75 +74,71 @@ export GATEWAY_URL=$INGRESS_HOST:$INGRESS_PORT
 
 Verficar se IP e porta foram criadas
 
-`echo "$GATEWAY_URL"`
+```
+echo "$GATEWAY_URL
 192.168.99.100:32194
+```
 
-## 5 - Aplicando as configurações
-
-- portal-configmap.yml - Alterar IP_SISTEMA para o IP externo do sistema noticias
-
-Criar os seguintes items nessa ordem:
+## 6 - Aplicando as configurações
 
 ```markdown
 ├── app-gateway.yaml
 ├── destination-rule-all.yaml
+├── kind-3nodes.yaml
 ├── portal-noticias
-│ ├── aluracursos.png
 │ ├── db-deployment.yml
 │ ├── db-noticias-configmap.yml
 │ ├── db-noticias-svc.yml
 │ ├── db-noticias.yml
-│ ├── deployment.png
-│ ├── kubernetes_dashboard.png
 │ ├── portal-configmap.yml
 │ ├── portal-deployment-v1.yml
 │ ├── portal-deployment-v2.yml
-│ ├── portal-hpa.yml
-│ ├── portal-replicaset.yml
 │ ├── portal-service.yml
-│ ├── portal.yml
-│ ├── README.md
-│ ├── service_list.png
 │ ├── sistema-noticias-configmap.yml
 │ ├── sistema-noticias-deployment-v1.yml
 │ ├── sistema-noticias-deployment-v2.yml
 │ ├── sistema-noticias-service.yml
 │ └── sistema-noticias.yml
-├── portal-virtual-service.yaml
-├── README.md
-├── sistema-virtual-service.yaml
-└── virtual-service-all.yaml
 ```
 
-`kubectl apply -f item`
+Criar os seguintes items nessa ordem:
 
-## 4 - Acessando o Portal de Noticias
+- Gateway
 
-Para acessar o Portal e o Sistema de Noticias fora do cluster é necessario fazer as seguintes configurações:
+`kubectl apply -f app-gateway.yaml`
 
-`minikube service portal-svc --url`
+- Workloads
 
-`minikube sistema-noticias-svc --url`
+`kubectl apply -f portal-noticias`
 
-`minikube service list`
+- Destination Rules
+
+`kubectl apply -f destination-rule-all.yaml`
+
+## 4 - Acessando o Portal de Noticias através do navegador
+
+Portal Noticias:
+
+http://$GATEWAY_URL/
+
+Sistema Noticias:
+
+http://$GATEWAY_URL/sistema
+
+## 4 - Acessando o ISTIO Dashboard
+
+ISTIO possui integração com <a href="https://istio.io/latest/docs/ops/integrations/kiali/" target="_blank">Kiali</a> dashboard e outras ferramentas de teletria. Para adicionar basta navegar para a pasta do istio e executar o seguinte comando.
+
+```
+kubectl apply -f samples/addons
+kubectl rollout status deployment/kiali -n istio-system
+istioctl dashboard kiali
+
+```
 
 <p>
-  <img alt="Schema" src="./service_list.png" />
-  
+  <img alt="Schema" src="./images/kiali.png" />
 </p>
-
-Acessar as URLs geradas no navegador
-
-## 4 - Acessando o Kubernetes Dashboard
-
-<p>
-  <img alt="Schema" src="./kubernetes_dashboard.png" />
-  
-</p>
-
-Kubernetes Dashboard é ferramenta web onde é possível criar e modificar recursos como Deployments, Jobs, Services, verificar de forma visual consumo de CPU e memoria e monitorar o estado dos pods
-
-<a href="https://kubernetes.io/docs/tasks/access-application-cluster/web-ui-dashboard/" target="_blank">Documentação</a>
 
 ## Autor
 
