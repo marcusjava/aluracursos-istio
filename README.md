@@ -135,7 +135,7 @@ http://$GATEWAY_URL/sistema
 
 ## 4 - Acessando o ISTIO Dashboard
 
-ISTIO possui integração com <a href="https://istio.io/latest/docs/ops/integrations/kiali/" target="_blank">Kiali</a> dashboard e outras ferramentas de teletria. Para adicionar basta navegar para a pasta do istio e executar o seguinte comando.
+ISTIO possui integração com <a href="https://istio.io/latest/docs/ops/integrations/kiali/" target="_blank">Kiali</a> dashboard e outras ferramentas de telemetria. Para adicionar basta navegar para a pasta do istio e executar o seguinte comando.
 
 ```
 kubectl apply -f samples/addons

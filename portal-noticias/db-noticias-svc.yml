@@ -8,7 +8,8 @@ metadata:
 spec:
   type: ClusterIP
   selector:
-    server: db
+    app: db
+    version: v1
   ports:
     - port: 3306
       name: tcp
