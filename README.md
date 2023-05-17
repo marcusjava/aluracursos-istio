@@ -164,7 +164,7 @@ istioctl dashboard kiali
   <img alt="Schema" src="./images/portal-v1-30-70.gif" />
 </p>
   
-` kubectl apply -f tasks/virtual-service-portal-v1.yaml`
+` kubectl apply -f tasks/virtual-service-portal-v1-30-70.yaml`
 
 ## Autor
 
