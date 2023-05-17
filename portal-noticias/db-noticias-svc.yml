@@ -9,7 +9,6 @@ spec:
   type: ClusterIP
   selector:
     app: db
-    version: v1
   ports:
     - port: 3306
       name: tcp

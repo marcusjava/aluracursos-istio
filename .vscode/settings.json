@@ -1,0 +1,6 @@
+{
+  "yaml.schemas": {
+    "https://json.schemastore.org/yamllint.json": "file:///home/marcus/Documentos/Alura/kubernetes/portal_noticias_istio/tasks/mirroring-db-v2.yaml",
+    "https://raw.githubusercontent.com/ansible/ansible-lint/main/src/ansiblelint/schemas/ansible.json#/$defs/tasks": "file:///home/marcus/Documentos/Alura/kubernetes/portal_noticias_istio/tasks/mirroring-sistema-v1.yaml"
+  }
+}

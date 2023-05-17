@@ -1,0 +1,15 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: db-v1
+spec:
+  hosts:
+    - "*"
+  tcp:
+    - match:
+        - port: 3306
+      route:
+        - destination:
+            host: db-svc
+            subset: v1
+          weight: 100
